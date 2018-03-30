@@ -1,5 +1,7 @@
-body,html,div,h1,h2,h3,h4,p,a,ul,li{
-	margin:0;
-	padding:0;
-	list-style: none;
+
+
+#mainbox{
+	height: 500px;
+	width: 300px;
+	background-color: none;
 }
