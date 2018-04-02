@@ -2,22 +2,20 @@ import * as d3 from 'd3';
 import '../style/main.css';
 
 function Histogram(_){
-	//factory function
+
 
 	let _thresholds;
 	let _domain;
-	let _value = () => {}; //function
+	let _value = () => {};
 	let _tickX = 6;
 	let _tickY = 5;
 	let _tickXFormat = d => d;
 	let _maxY = -Infinity;
 
 	//Internal event dispatch
-
-
-
 	function exports(data,i){
 		const root = this;
+
 
 		const width = root.clientWidth; 
 		const height = root.clientHeight;
@@ -28,10 +26,11 @@ function Histogram(_){
 		const svg = d3.select(root)
 			.classed('histogram',true)
 			.selectAll('svg')
-			.data([1]); //What's going on here?
+			.data([1]); //tell just draw one svg
 		const svgEnter = svg.enter().append('svg')
 			.attr('width',width)
 			.attr('height',height);
+
 		svgEnter.append('g').attr('class','plot')
 
 		const plot = svg.merge(svgEnter)
@@ -39,23 +38,27 @@ function Histogram(_){
 			.attr('transform',`translate(${margin.l},${margin.t})`);
 
 		//Transform data
-		//Group trips into discrete 15 minute bins, using the d3.histogram layout
 		const histogram = d3.histogram()
 			.value(_value)
 			.thresholds(_thresholds)
 			.domain(_domain);
-		const tripsByQuarterHour = histogram(data)
+
+		console.log(data);
+	/*	
+		const tripsByPoints = histogram(data)
 			.map(d => {
 				return {
-					x0:d.x0, //left bound of the bin; 18.25 => 18:15
-					x1:d.x1,
-					volume:d.length
+					points: d.points,
+					price: d.price
 				}
 			});
+		
+		*/
+		//console.log(tripsByPoints);
 
 		//Set up scales in the x and y direction
 		const scaleX = d3.scaleLinear().domain(_domain).range([0,w]);
-		const maxVolume = d3.max(tripsByQuarterHour, d => d.volume);
+		const maxVolume = 2500;
 		const scaleY = d3.scaleLinear().domain([0, Math.max(_maxY,maxVolume)]).range([h,0]);
 
 		//Set up axis generator
@@ -74,25 +77,28 @@ function Histogram(_){
 		//Update
 		const binsUpdate = plot
 			.selectAll('.bin')
-			.data(tripsByQuarterHour);
+			.data(tripsByPoints);
 
 		//Enter
 		const binsEnter = binsUpdate.enter()
-			.append('rect')
+			.append('circle')
 			.attr('class','bin') //If you forget this, what will happen if we re-run this the activityHistogram function?
-			.attr('x', d => scaleX(d.x0))
-			.attr('width', d => (scaleX(d.x1) - scaleX(d.x0)))
+			.attr('x', d => scaleX(d.points))
+			.attr('width', d => scaleX(d.points))
 			.attr('y', d => h)
-			.attr('height', 0);
+			.attr('height', 0)
+			.attr('r', 5)
+			.attr('stroke', '#3C92BA')
+  			.attr('stroke-width', 1);
 
 		//Enter + update
 		binsEnter.merge(binsUpdate)
 			.transition()
 			.duration(500)
-			.attr('x', d => scaleX(d.x0))
-			.attr('width', d => (scaleX(d.x1) - scaleX(d.x0)))
-			.attr('y', d => scaleY(d.volume))
-			.attr('height', d => (h - scaleY(d.volume)))
+			.attr('x', d => scaleX(d.points))
+			.attr('width', d => scaleX(d.points))
+			.attr('y', d => scaleY(d.price))
+			.attr('height', d => (h - scaleY(d.price)))
 			.style('fill','rgba(0,0,0,.1)');
 
 		//Exit
@@ -118,6 +124,7 @@ function Histogram(_){
 		axisYNode.merge(axisYNodeEnter)
 			.call(axisY);
 
+/*
 		//Mouse indicator
 		let mouseIndicator = plot
 			.selectAll('.mouse-indicator')
@@ -161,6 +168,8 @@ function Histogram(_){
 					.attr('y1',0)
 					.attr('y2',0);
 			})
+	*/
+
 
 	}
 
@@ -212,18 +221,12 @@ function Histogram(_){
 		return this;
 	}
 
-	exports.on = function(eventType, cb){
-		_dispatch.on(eventType, cb);
-		return this;
-	}
-
-
 	return exports;
 }
 
 //Default export (only one per module .js file)
 export default Histogram;
-
+/*
 //Named export (multiples allowed)
 export const timeline = Histogram()
 	.domain([new Date(2013,0,1), new Date(2013,11,31)])
@@ -233,16 +236,8 @@ export const timeline = Histogram()
 		return (new Date(d)).toUTCString();
 	})
 	.tickX(2);
-
+*/
 export const activityHistogram = Histogram()
-	.thresholds(d3.range(0,24,.5))
-	.domain([0,24])
-	.value(d => d.time_of_day0)
-	.tickXFormat(d => {
-		const time = +d;
-		const hour = Math.floor(time);
-		let min = Math.round((time-hour)*60);
-		min = String(min).length === 1? "0"+ min : min;
-		return `${hour}:${min}`
-	})
-	.maxY(1000);
+	.thresholds(d3.range(0,100,10))
+	.domain([0,100])
+	.maxY(2500);
