@@ -3,10 +3,18 @@ import {csv} from 'd3';
 export const parse = d => {
 
 	return {
+		country: d.country,
+		winename: d.designation,
 		points: d.points,
-		price: d.price
+		price: d.price,
+		place: d.province,
+		grape: d.variety,
+		winery: d.winery
+
 	};
 }
+
+
 /*
 export const parse2 = d => {
 	const t0 = new Date(d.starttime);
