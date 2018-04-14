@@ -7,7 +7,7 @@ export function WineChart(_) {
 	let _grapename;
 
 		function exports(data,i){
-
+/*
 			const root = this;
 		
 			const margin = {t:0,r:0,b:0,l:0};
@@ -48,7 +48,7 @@ export function WineChart(_) {
 
 
     			//console.log(_grapename);
-
+*/
 
 		}
 

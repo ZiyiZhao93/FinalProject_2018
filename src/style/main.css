@@ -1,5 +1,8 @@
-body {
-
+html, body {
+	height: 100%;
+	margin: 0;
+	padding:0;
+	list-style: none;
 }
 
 line{
@@ -9,30 +12,19 @@ line{
 
 .winebox{
 	width: 100%;
-	height: 600px;
-	background-color: none;
+	height: 100%;
+	position:fixed;
+	background:pink;
+	z-index:-1;
+	transition:all 500ms;
 }
 
-.mainbox{
-	width: 600px;
-	height: 440px;
-	margin-left: 5%;
-	margin-top: 200px;
-	background-color: none;
+.scroll-container{
+	height: 100%;
+	width: 70%;
 }
 
-.rectbox {
-  width: 600px;
-  height: 440px;
-  margin-left: 5%;
-  margin-top: 200px;
-  background-color: pink;
-}
-
-.circlebox {
-	width: 600px;
-	height: 440px;
-	margin-left: 5%;
-	margin-top: 100px;
-	background-color: lightblue;
+.scroll-box{
+	height: 100%;
+	
 }

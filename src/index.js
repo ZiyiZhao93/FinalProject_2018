@@ -12,6 +12,8 @@ import CircleChart from './circlebox.js';
 
 import WineChart from './winebox.js';
 
+import SomeModule from './some-module';
+
 
 
 Promise.all([
@@ -19,6 +21,8 @@ Promise.all([
 	]).then(([wineData]) => {
 
 		//console.log(wineData);
+
+//////////////////////////////////////////////////////////////////
 
 	const circleDatabyName = d3.nest()
 		.key(function(d){
@@ -85,6 +89,57 @@ Promise.all([
 
 		//console.log(circleDatabyWinery);
 
+//////////////////////////////////////////////////////////////////
+
+	const someModule = someModule();
+	select('.winebox')
+		.append('div')
+		.attr('class', 'module')
+		.each(someModule);
+
+	const Scrollmagic = require('scrollmagic');
+
+	const controller = new Scrollmagic.Controller();
+
+	const scene1 = new Scrollmagic.Scene({
+		triggerElement:'#mainbox'
+		})
+		.on('enter', () => {
+
+		})
+		.addTo(controller);
+
+	const scene2 = new Scrollmagic.Scene({
+		triggerElement:'#rectbox'
+		})
+		.on('enter', () => {
+		select('.winebox')
+			.style('background', 'lightblue');
+		})
+		.on('leave', () => {
+			select('.winebox')
+				.style('background', 'pink');
+		})
+		.addTo(controller);
+
+	const scene3 = new Scrollmagic.Scene({
+		triggerElement:'#circlebox'
+		})
+		.on('enter', () => {
+			select('.winebox')
+				.style('background','yellow');
+
+		})
+		.on('leave', () => {
+			select('.winebox')
+				.style('background','lightblue');
+
+		})
+		.addTo(controller);
+
+
+
+
 	d3.select('#winebox')
 		.datum(wineData)
 		.each(WineChart()
@@ -111,7 +166,7 @@ Promise.all([
 			.placename(circleDatabyPlace)
 		);
 
-
+//////////////////////////////////////////////////////////////////
 
 
 
