@@ -2,57 +2,62 @@ import * as d3 from 'd3';
 import './style/main.css';
 
 
-function MainChart(_) {
+export function MainChart(_) {
 
-	console.log('here');
-
+let _countryname;
 
 	function exports(data,i){
 
+/*
+
 		//console.log(data);
 		const root = this;
-		console.log(root);
 
-	//const points = d3.map(data, d => d.points);
-	//const price = d3.map(data, d => d.price);
 
   	const margin = {t:10,r:20,b:10,l:20};
-  	const w_svg = document.getElementById('#mainbox').clientWidth+margin.l*2+margin.r*2;
-  	const h_svg = document.getElementById('#mainbox').clientHeight+margin.l*2+margin.r*2;
-	const w = width-margin.l-margin.r;
-    const h = height-margin.t-margin.b;
+  	const w_svg = root.clientWidth+margin.l*2+margin.r*10;
+  	const h_svg = root.clientHeight+margin.t*8+margin.b*6;
+	const w = w_svg-margin.l-margin.r;
+    const h = h_svg-margin.t*2-margin.b*2;
 
-	const svgMain = d3.select(root)
+	const svg = d3.select(root)
+		.classed('mainbox', true)
 		.selectAll('svg')
-		.
+		.data([1]);
+
+	const svgMain = svg.enter().append('svg')
 		.attr('width', w_svg)
 		.attr('height', h_svg);
 
+	svgMain.append('g').attr('class', 'plot');
+
+	const plot = svg.merge(svgMain)
+		.select('.plot')
+		.attr('width', w)
+		.attr('height', h)
+		.attr('transform',`translate(20,6)`);
+
+////////////////////////////////////////////////////////////////////
+
 	const text = svgMain
 		.append('text')
-		.attr('x', '370px')
-		.attr('y', '450px')
+		.attr('x', '630px')
+		.attr('y', '540px')
 		.style('font-size', '10px')
 		.style('font-color', 'black')
 		.text('Price');
 
 	const text1 = svgMain
 		.append('text')
-		.attr('x', '60px')
-		.attr('y', '10px')
+		.attr('x', '30px')
+		.attr('y', '16px')
 		.style('font-size', '10px')
 		.style('font-color', 'black')
 		.text('Points');
+	
 
 
-
-	let plot = svgMain
-		.append('g')
-		.attr('width', w)
-		.attr('height', h)
-		.attr('transform',`translate(70,30)`);
-
-	const scaleX = d3.scaleLog().domain([1,2500]).range([0,w]);
+	const scaleX = d3.scaleLog().domain([1,1500]).range([0,w]).nice();
 	const maxVolume = 100;
 	const scaleY = d3.scaleLinear().domain([79, maxVolume]).range([h,0]);
 
@@ -60,7 +65,8 @@ function MainChart(_) {
 
 	const axisX = d3.axisBottom()
 		.scale(scaleX)
-		.ticks(5);
+		.ticks(20, ",.1s")
+		.tickSize(6,0);
 	const axisXNode = plot
 		.selectAll('.axis-x')
 		.data([1]);
@@ -76,7 +82,7 @@ function MainChart(_) {
 	const axisY = d3.axisLeft()
 		.scale(scaleY)
 		.tickSize(-w)
-		.ticks(5);
+		.ticks(10);
 	const axisYNode = plot
 		.selectAll('.axis-y')
 		.data([1]);
@@ -90,7 +96,7 @@ function MainChart(_) {
 
 	const binsUpdate = plot
 		.selectAll('.circle')
-		.data(wineData);
+		.data(data);
 
 
 
@@ -105,8 +111,8 @@ function MainChart(_) {
 			return scaleY(d.points)})
 		.attr('r', 5)
 		.attr('fill', 'none')
-		.attr('stroke', '#9ACD32')
-  		.attr('stroke-width', 0.5);
+		.attr('stroke', '#B22222')
+  		.attr('stroke-width', .8);
 
 		//Enter + update
 	binsEnter.merge(binsUpdate);
@@ -119,9 +125,18 @@ function MainChart(_) {
 	binsUpdate.exit().remove();
 
 
+//////////////////////////////////////////////////////////////////
+
+//const circleDatabyEighty = circleDatabyPoints.filter(d => d.key == 80);
 
 //////////////////////////////////////////////////////////////////
 
+*/
+	}
+
+	exports.countryname = function(_){
+		_countryname = _;
+		return this;
 	}
 
 	return exports;
