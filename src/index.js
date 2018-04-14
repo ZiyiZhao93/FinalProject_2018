@@ -1,14 +1,14 @@
 import * as d3 from 'd3';
-import csv from 'd3';
+import {select} from 'd3';
 import "./style/main.css";
 
 import {parse} from '../utils';//array
 
-import PlaceChart from './rectbox.js';
+//import PlaceChart from './rectbox.js';
 
-import MainChart from './mainbox.js';
+//import MainChart from './mainbox.js';
 
-import CircleChart from './circlebox.js';
+//import CircleChart from './circlebox.js';
 
 import WineChart from './winebox.js';
 
@@ -16,8 +16,10 @@ import SomeModule from './some-module';
 
 
 
+
+
 Promise.all([
-	d3.csv('../data/wine-data.csv', parse)
+	d3.csv('../data/wine-data-1.csv', parse)
 	]).then(([wineData]) => {
 
 		//console.log(wineData);
@@ -73,10 +75,12 @@ Promise.all([
 		// })
 		.entries(wineData);
 
+	//console.log(circleDatabyGrape);
+
 // const len =	circleDatabyGrape.values.length;
 // console.log(len);
 
-		console.log(circleDatabyGrape);
+		//console.log(circleDatabyGrape);
 
 	const circleDatabyWinery = d3.nest()
 		.key(function(d){
@@ -89,9 +93,51 @@ Promise.all([
 
 		//console.log(circleDatabyWinery);
 
+
+	const circleDatabyColor = d3.nest()
+		.key(function(d){
+			return d.fill
+		})
+		.entries(wineData);
+
+	//console.log(circleDatabyColor);
+
 //////////////////////////////////////////////////////////////////
 
-	const someModule = someModule();
+
+	d3.select('#winebox')
+		.datum(wineData)
+		.each(WineChart()
+			.grapename(circleDatabyGrape)
+			.colorname(circleDatabyColor)
+		);
+
+/*
+	d3.select('#mainbox')
+		.datum(wineData)
+		.each(MainChart()
+			.countryname(circleDatabyName)
+		);
+
+
+	d3.select('#rectbox')
+		.datum(wineData)
+		.each(PlaceChart());
+
+
+	d3.select('#circlebox')
+		.datum(wineData)
+		.each(CircleChart()
+			.countryname(circleDatabyName)
+			.placename(circleDatabyPlace)
+		);
+
+*/
+
+//////////////////////////////////////////////////////////////////
+
+
+const someModule = SomeModule();
 	select('.winebox')
 		.append('div')
 		.attr('class', 'module')
@@ -114,11 +160,11 @@ Promise.all([
 		})
 		.on('enter', () => {
 		select('.winebox')
-			.style('background', 'lightblue');
+			.style('background', '#FFF8DC');
 		})
 		.on('leave', () => {
 			select('.winebox')
-				.style('background', 'pink');
+				.style('background', 'none');
 		})
 		.addTo(controller);
 
@@ -127,46 +173,15 @@ Promise.all([
 		})
 		.on('enter', () => {
 			select('.winebox')
-				.style('background','yellow');
+				.style('background','#E6E6FA');
 
 		})
 		.on('leave', () => {
 			select('.winebox')
-				.style('background','lightblue');
+				.style('background','#FFF8DC');
 
 		})
 		.addTo(controller);
-
-
-
-
-	d3.select('#winebox')
-		.datum(wineData)
-		.each(WineChart()
-			.grapename(circleDatabyGrape)
-		);
-
-
-	d3.select('#mainbox')
-		.datum(wineData)
-		.each(MainChart()
-			.countryname(circleDatabyName)
-		);
-
-
-	d3.select('#rectbox')
-		.datum(wineData)
-		.each(PlaceChart());
-
-
-	d3.select('#circlebox')
-		.datum(wineData)
-		.each(CircleChart()
-			.countryname(circleDatabyName)
-			.placename(circleDatabyPlace)
-		);
-
-//////////////////////////////////////////////////////////////////
 
 
 

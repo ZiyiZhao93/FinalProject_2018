@@ -9,8 +9,8 @@ export const parse = d => {
 		price: d.price,
 		place: d.province,
 		grape: d.variety,
-		winery: d.winery
-
+		winery: d.winery,
+		fill: d.fill
 	};
 }
 
