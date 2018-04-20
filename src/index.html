@@ -4,23 +4,63 @@
 		<meta charset='utf-8'>
    	 	<meta name="viewport" content="width=device-width">
 
+   	 	<link href="https://fonts.googleapis.com/css?family=Berkshire+Swash" rel="stylesheet">
+   	 	<link href="https://fonts.googleapis.com/css?family=PT+Sans+Narrow" rel="stylesheet">
 
 	</head>
 	<body>
-
-		<div class="winebox" id="winebox"></div>
-		<div class="scroll-container">
-
-			<div class="scroll-box" id="mainbox"></div>
-
-			<div class="scroll-box" id="rectbox"
-			style='background:#87CEFA;'></div>
-
-			<div class="scroll-box" id="circlebox"
-			style='background:#8FD8D2;'></div>
-
+		<div class="container-fluid-header">
+				<div class="first-part">
+					<h1 id="title">Which wine people most like?</h1>
+					<p id="subhed">Here is some data from WineEnthusiast. The data recorded a total of 47854 wines.</p>
+					<p id="credit">BY Ziyi Zhao</p>
+				</div>
 		</div>
-		<script src='bundle.js' type='text/javascript'></script>
+
+
+		<div class="container-top">
+				<div class="second-part">
+					<p id="content">
+						Choosing the right wine is not an easy task for most people. People usually buy wine by asking the shop assistant, but because of the difference in taste between the shop assistant and themself, most times the wine people buy does not the right one. Hopefully the following visualization of information will help you solve this problem.
+					</p>
+				</div>
+		</div>
+
+
+		<div class="main-container">
+				
+				<div class="app-container" id="winebox" ></div>
+				
+				<div class="scroll-container">
+
+					<div class="scroll-scene" id="scene-1" style='background:pink;'><p>Uploader is zackthoutt. Data was scraped from WineEnthusiast during the week of June 15th, 2017. After feedback from users of the dataset he scraped the reviews again on November 22nd, 2017.
+					<br>
+					The data includes WineEnthusiasts from 48 countries， 47854 wine name, 467 grape name, 505 grape place and 14984 winery.</p></div>
+			
+
+					<div class="scroll-scene" id="scene-2" style='background:blue;'><p>The points WineEnthusiasts give is between 80 to 100. They also give the wine's price, the funny thing is some wine have different price.</p></div>
+
+					<div class="scroll-scene" id="scene-3" style='background:purple;'><p>They also give the wine's price, the funny thing is some wine have different price.</p></div>
+				
+				</div>
+		</div>
+
+		<div class="container-buttom">
+				<div class="fifth-part">
+					<p id="content-1">
+						As you can see, the axisX is showing points people give, axisY is showing wine's price. From the chart below, we can see that the higher the price, the higher the score. Most wines are given around 94 points.
+					</p>
+					<div class="graphic" id="mainbox">
+					</div>
+				</div>
+		</div>
+
+		<div class="line"></div>
+
+		<h6 class="footer">This data is finded on <a href="https://www.kaggle.com/zynicide/wine-reviews">Kernel</a>. Uploader is zackthoutt. Data was scraped from WineEnthusiast during the week of June 15th, 2017. After feedback from users of the dataset he scraped the reviews again on November 22nd, 2017.</h6>
+
+
+		<script src='./bundle.js' type='text/javascript'></script>
 
 	</body>
 </html>

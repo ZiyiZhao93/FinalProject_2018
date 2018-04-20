@@ -4,17 +4,15 @@ import "./style/main.css";
 
 import {parse} from '../utils';//array
 
-//import PlaceChart from './rectbox.js';
-
-//import MainChart from './mainbox.js';
-
-//import CircleChart from './circlebox.js';
+import MainChart from './mainbox.js';
 
 import WineChart from './winebox.js';
 
 import SomeModule from './some-module';
 
+//import PlaceChart from './rectbox.js';
 
+//import CircleChart from './circlebox.js';
 
 
 
@@ -68,7 +66,7 @@ Promise.all([
 			return d.grape
 		})
 		.key(function(d){
-			return d.winename
+			return d.fill
 		})
 		// .rollup(function(v){
 		// 	return v.length
@@ -112,13 +110,13 @@ Promise.all([
 			.colorname(circleDatabyColor)
 		);
 
-/*
+
 	d3.select('#mainbox')
 		.datum(wineData)
 		.each(MainChart()
 			.countryname(circleDatabyName)
 		);
-
+/*
 
 	d3.select('#rectbox')
 		.datum(wineData)
@@ -135,62 +133,95 @@ Promise.all([
 */
 
 //////////////////////////////////////////////////////////////////
-
-
-const someModule = SomeModule();
-	select('.winebox')
-		.append('div')
-		.attr('class', 'module')
-		.each(someModule);
+	
+	const someModule = SomeModule();
+	select('.app-container')
+	.append('div')
+	.attr('class','module')
+	.each(someModule);
 
 	const Scrollmagic = require('scrollmagic');
 
 	const controller = new Scrollmagic.Controller();
 
-	const scene1 = new Scrollmagic.Scene({
-		triggerElement:'#mainbox'
-		})
-		.on('enter', () => {
 
-		})
-		.addTo(controller);
+
+	const scene1 = new Scrollmagic.Scene({
+		triggerElement:'#scene-1'
+	})
+	.on('enter', () => {
+		console.log('scene-1:enter')
+	})
+	.addTo(controller);
+
+
 
 	const scene2 = new Scrollmagic.Scene({
-		triggerElement:'#rectbox'
-		})
-		.on('enter', () => {
-		select('.winebox')
-			.style('background', '#FFF8DC');
-		})
-		.on('leave', () => {
-			select('.winebox')
-				.style('background', 'none');
-		})
-		.addTo(controller);
+		triggerElement:'#scene-2'
+	})
+	.on('enter', () => {
+		console.log('scene-2:enter')
+		select('.app-container')
+			.style('background','lightblue');
 
-	const scene3 = new Scrollmagic.Scene({
-		triggerElement:'#circlebox'
-		})
-		.on('enter', () => {
-			select('.winebox')
-				.style('background','#E6E6FA');
+		someModule.changeState({
+			x:300,
+			y:500,
+			r:30
+		});
 
-		})
-		.on('leave', () => {
-			select('.winebox')
-				.style('background','#FFF8DC');
-
-		})
-		.addTo(controller);
+	})
+	.on('leave', () => {
+		console.log('scene-2:end')
+		select('.app-container')
+			.style('background','pink');
 
 
+		someModule.changeState({
+			x:0,
+			y:200,
+			r:5
+		});
+
+	})
+	.addTo(controller);
+
+const scene3 = new Scrollmagic.Scene({
+		triggerElement:'#scene-3'
+	})
+	.on('enter', () => {
+		console.log('scene-3:enter')
+		select('.app-container')
+			.style('background','yellow');
+
+	})
+	.on('leave', () => {
+		console.log('scene-3:end')
+		select('.app-container')
+			.style('background','lightblue');
+
+	})
+	.addTo(controller);
+
+	
 
 
 
 
+
+	
 
 
 
 
 });
+
+
+
+
+
+
+
+
+
 
