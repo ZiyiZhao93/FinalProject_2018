@@ -58,8 +58,8 @@ export function WineChart(_) {
 				.attr('cx',-5)
 				.attr('cy',-5)
 				.attr('r', 3)
-				.attr('fill', 'none')
-				.attr('stroke', '#9ACD32')
+				.attr('fill', '#9ACD32')
+				.attr('stroke', '#228B22')
   				.attr('stroke-width', 0.5)
 				.attr('width',10)
 				.attr('height',10);
@@ -67,7 +67,7 @@ export function WineChart(_) {
 
 			const simulation = forceSimulation();
 
-			const center = forceCenter(w/3,h/2);
+			const center = forceCenter(w/2,h/2);
 			const xPos = forceX().x(d => d.value>1?w*1/2:w/2);
 			const yPos = forceY().y(h/2);
 			const charge = forceManyBody().strength(.2);
@@ -88,30 +88,6 @@ export function WineChart(_) {
 				.on('end', () => {
 					console.log('Simulation end')
 				});
-
-		/*
-			svgMain.selectAll('circle')
-				.data(_grapename)
-				.enter()
-				.append('circle')
-				.attr('cx', function(d,i){
-					return (Math.random()* width);
-				})
-				.attr('cy', function(d,i){
-					return (Math.random()* height);
-				})
-				// .attr('cy', function(d,i){
-				// 	return (.5+i)
-				// })
-				.attr('r',5)
-				.style('fill','#9ACD32')
-    			// .style('stroke', '#9ACD32')
-    			// .style('stroke-width', 1)
-    			.style('opacity', .5);
-
-		*/
-
-    			//console.log(_grapename);
 
 
 		}

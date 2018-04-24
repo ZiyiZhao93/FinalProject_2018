@@ -41,7 +41,7 @@ export function MainChart(_) {
 
 		const text = svgMain
 			.append('text')
-			.attr('x', '690px')
+			.attr('x', '680px')
 			.attr('y', '400px')
 			.style('font-size', '10px')
 			.style('font-color', 'black')

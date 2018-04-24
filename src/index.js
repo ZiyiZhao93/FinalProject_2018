@@ -145,7 +145,6 @@ Promise.all([
 	const controller = new Scrollmagic.Controller();
 
 
-
 	const scene1 = new Scrollmagic.Scene({
 		triggerElement:'#scene-1'
 	})
@@ -162,7 +161,7 @@ Promise.all([
 	.on('enter', () => {
 		console.log('scene-2:enter')
 		select('.app-container')
-			.style('background','lightblue');
+			.style('background','#E0FFFF');
 
 		someModule.changeState({
 			x:300,
@@ -174,7 +173,7 @@ Promise.all([
 	.on('leave', () => {
 		console.log('scene-2:end')
 		select('.app-container')
-			.style('background','pink');
+			.style('background','#FFEFD5');
 
 
 		someModule.changeState({
@@ -192,17 +191,16 @@ const scene3 = new Scrollmagic.Scene({
 	.on('enter', () => {
 		console.log('scene-3:enter')
 		select('.app-container')
-			.style('background','yellow');
+			.style('background','#D8BFD8');
 
 	})
 	.on('leave', () => {
 		console.log('scene-3:end')
 		select('.app-container')
-			.style('background','lightblue');
+			.style('background','#E0FFFF');
 
 	})
 	.addTo(controller);
-
 	
 
 
