@@ -1,112 +1,154 @@
 import * as d3 from 'd3';
-import {select,path,event,mouse,dispatch,
-	forceSimulation,
-	forceManyBody,
-	forceCenter,
-	forceCollide,
-	forceX,
-	forceY
-} from 'd3';
 import './style/main.css';
 
 
 export function WineChart(_) {
 
-	let _grapename,
-		_colorname;
+	let _countryname;
 
-		function exports(data,i){
-
-			const root = this;
-
-			console.log(_grapename);
-			console.log(_colorname);
-
-			//console.log(root);
-		
-			const margin = {t:0,r:0,b:0,l:0};
-			const w = root.clientWidth+margin.l+margin.r;
-  			const h = root.clientHeight+margin.t+margin.b;
-
-  			const svg = d3.select(root)
-				.classed('winebox', true)
-				.selectAll('svg')
-				.data([1]);
-
-			const svgMain = svg.enter().append('svg')
-				.attr('width', w)
-				.attr('height', h);
-
-			//svgMain.append('g').attr('transform',`translate(0,0)`);
-
-			const nodes = Array.from(_grapename)
-				.map(v => {
-					return {
-						value: Math.random()
-					}
-				});			
+	function exports(data,i){
 
 
-			let elements = svgMain
-				.selectAll('.element')
-				.data(nodes);
 
-			elements = elements.enter()
-				.append('circle')
-				.classed('element',true)
-				.merge(elements)
-				.attr('cx',-5)
-				.attr('cy',-5)
-				.attr('r', 3)
-				.attr('fill', '#9ACD32')
-				.attr('stroke', '#228B22')
-  				.attr('stroke-width', 0.5)
-				.attr('width',10)
-				.attr('height',10);
+		//console.log(data);
+		const root = this;
 
 
-			const simulation = forceSimulation();
+  		const margin = {t:10,r:20,b:10,l:20};
+  		const w_svg = root.clientWidth+margin.l*2+margin.r*10;
+  		const h_svg = root.clientHeight+margin.t*8+margin.b*6;
+		const w = w_svg-margin.l-margin.r;
+    	const h = h_svg-margin.t*2-margin.b*2;
 
-			const center = forceCenter(w/2,h/2);
-			const xPos = forceX().x(d => d.value>1?w*1/2:w/2);
-			const yPos = forceY().y(h/2);
-			const charge = forceManyBody().strength(.2);
-			const collide = forceCollide().radius(d => d.value*20);
+		const svg = d3.select(root)
+			.classed('mainbox', true)
+			.selectAll('svg')
+			.data([1]);
+
+		const svgMain = svg.enter().append('svg')
+			.attr('width', w_svg)
+			.attr('height', h_svg);
+
+		svgMain.append('g').attr('class', 'plot');
+
+		const plot = svg.merge(svgMain)
+			.select('.plot')
+			.attr('width', w)
+			.attr('height', h)
+			.attr('transform',`translate(20,6)`);
+
+////////////////////////////////////////////////////////////////////
+
+		const text = svgMain
+			.append('text')
+			.attr('x', '680px')
+			.attr('y', '400px')
+			.style('font-size', '10px')
+			.style('font-color', 'black')
+			.text('Price');
+
+		const text1 = svgMain
+			.append('text')
+			.attr('x', '30px')
+			.attr('y', '16px')
+			.style('font-size', '10px')
+			.style('font-color', 'black')
+			.text('Points');
+	
 
 
-			simulation
-				.force('charge',charge)
-				.force('collide',collide)
-				.force('xPos',xPos)
-				.force('yPos',yPos)
-				.force('center',center)
-				.nodes(nodes)
-				.on('tick', () => {
-					elements
-						.attr('transform', d => `translate(${d.x},${d.y})`);
-				})
-				.on('end', () => {
-					console.log('Simulation end')
-				});
+		const scaleX = d3.scaleLog().domain([1,1500]).range([0,w]).nice();
+		const maxVolume = 100;
+		const scaleY = d3.scaleLinear().domain([79, maxVolume]).range([h,0]);
+
+////////////////////////////////////////////////////////////////////
+
+		const axisX = d3.axisBottom()
+			.scale(scaleX)
+			.ticks(20, ",.1s")
+			.tickSize(6,0);
+		const axisXNode = plot
+			.selectAll('.axis-x')
+			.data([1]);
+		const axisXNodeEnter = axisXNode.enter()
+			.append('g')
+			.attr('class','axis axis-x');
+		axisXNode.merge(axisXNodeEnter)
+			.attr('transform',`translate(0,${h})`)
+			.call(axisX);
+	
+////////////////////////////////////////////////////////////////////
+
+		const axisY = d3.axisLeft()
+			.scale(scaleY)
+			.tickSize(-w)
+			.ticks(10);
+		const axisYNode = plot
+			.selectAll('.axis-y')
+			.data([1]);
+		const axisYNodeEnter = axisYNode.enter()
+			.append('g')
+			.attr('class','axis axis-y');
+		axisYNode.merge(axisYNodeEnter)
+			.call(axisY);
+	
+////////////////////////////////////////////////////////////////////
+
+		const binsUpdate = plot
+			.selectAll('.circle')
+			.data(data);
 
 
-		}
+
+		//Enter
+		const binsEnter = binsUpdate.enter()
+			.append('circle')
+			.attr('class','circle') //If you forget this, what will happen if we re-run this the activityHistogram function?
+			.attr('cx', function(d) {
+				return scaleX(d.price)})
+			.attr('cy', function(d){
+			//console.log(d.price)
+				return scaleY(d.points)})
+			.attr('r', 5)
+			.attr('fill', 'none')
+			.attr('stroke', '#B22222')
+  			.attr('stroke-width', .8);
+
+		//Enter + update
+		binsEnter.merge(binsUpdate);
+		//.transition()
+		//.duration(500)
+		//.attr('r', 6)
+		//.style('fill','rgba(0,0,0,.1)');
+
+		//Exit
+		binsUpdate.exit().remove();
 
 
-	exports.grapename = function(_){
-		_grapename = _;
-		return this;
+//////////////////////////////////////////////////////////////////
+
+//const circleDatabyEighty = circleDatabyPoints.filter(d => d.key == 80);
+
+//////////////////////////////////////////////////////////////////
+
+
 	}
 
-	exports.colorname = function(_){
-		_colorname = _;
+	exports.countryname = function(_){
+		_countryname = _;
 		return this;
 	}
-
 
 	return exports;
+
 
 }
 
 
+
 export default WineChart;
+
+
+
+
+

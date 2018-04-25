@@ -1,5 +1,4 @@
 html, body {
-	overflow-x: hidden;
 	margin-left: 0px;
 	margin-right: 0px;
 	margin-top: 0px;
@@ -51,10 +50,9 @@ p#credit{
 	font-family: 'PT Sans Narrow', sans-serif;
 	font-size: 15px;
 	color: black;
-	width: 15%;
+	width: 10%;
 	height: 20px;
-	margin-left: 70%;
-	margin-right: 15%;
+	margin-left: 90%;
 }
 
 .container-top{
@@ -77,78 +75,116 @@ p#content{
 	margin-bottom: 200px;
 }
 
+.trigger{
+	width: 30%;
+	height: 100vh;
+	float: left;
+	margin-top: 0px;
+}
+
 .main-container{
-	position: relative;
 	width: 100%;
-	height: 100%;
-	background-color: #FFEFD5;
-	z-index: -1;
-	transition: all 500ms;
 }
 
-#winebox{
-	width: 70%;
-    height: 100%;
-    position: relative;
-  	float: left;
-    display: block;
-}
-
-.module{
-	min-height: 500px;
-}
-
-.scroll-container{
-	height:100%;
-	width:30%;
-	float:right;
-}
-
-.scroll-scene{
-	position: relative;
-	height: 100%;
-	font-family: 'PT Sans Narrow', sans-serif;
-	font-size: 20px;
-	color: black;
-	padding-left: 5%;
-	padding-right: 5%;
-	margin: 0px 0px 0px 0px;
-}
-
-p#scroll-text{
-	margin: 0px;	
-
-}
-
-.container-buttom{
+.container-1{
 	width: 100%;
-    height: 600px;
-    background-color: white;
-    margin-top: 100px;
-    padding-right: 0px;
-    padding-left: 0px;
-    position: relative;
+	height: 100vh;
 }
 
-p#content-1{
-	font-family: 'PT Sans Narrow', sans-serif;
-	font-size: 20px;
-	color: black;
+.circle-graphic-1{
 	width: 70%;
-	height: 100px;
+	height: 100vh;
+	float: left;
+}
+
+#trigger-1{
 	margin-left: 15%;
 	margin-right: 15%;
+	margin-top: 200px;
+	width: 70%;
+	font-family: 'PT Sans Narrow', sans-serif;
 }
 
-.graphic{
-	width: 500px;
-	height: 300px;
-    margin: 10px 20% 100px 20%;
+.legend{
+    margin-top: 10px;
+    margin-left: 20px;
+    font-family: 'PT Sans Narrow', sans-serif;
+    font-size: 0.8rem;
 }
 
-.selected {
-  fill: red;
-  stroke: brown;
+.Asia{
+	color: #F7E1B7;
+}
+.Europe{
+	color: #765DA1;
+}
+.Africa{
+	color: #F78A63;
+}
+.America{
+	color: #91C5AA;
+}
+.Oceania{
+	color: #87CEFA;
+}
+
+.container-2{
+	width: 100%;
+	height: 100vh;
+	margin-top: 50px;
+}
+
+.circle-graphic-2{
+	width: 70%;
+	height: 100vh;
+	float: left;
+}
+
+.chart-1{
+	width: 100%;
+	height: 50%;
+	margin-top: 25%;
+}
+
+.chart-2{
+	width: 80%;
+	height: 80%;
+	margin-top: 10%;
+	margin-left: 8%;
+}
+
+.plot{
+	width: 300px;
+	height: 100px;
+}
+
+#trigger-2{
+	margin-left: 15%;
+	margin-right: 15%;
+	margin-top: 250px;
+	width: 70%;
+	font-family: 'PT Sans Narrow', sans-serif;
+}
+
+.container-3{
+	width: 100%;
+	height: 100vh;
+	margin-top: 50px;
+}
+
+.circle-graphic-3{
+	width: 70%;
+	height: 100vh;
+	background-color: pink;
+	float: left;
+}
+
+#trigger-3{
+	margin-left: 15%;
+	margin-right: 15%;
+	margin-top: 270px;
+	width: 70%;
+	font-family: 'PT Sans Narrow', sans-serif;
 }
 
 .line{
@@ -162,6 +198,7 @@ h6.footer{
 	height: 20px;
 	margin-left: 20%;
 	margin-right: 20%;
+	margin-bottom: 50px;
 }
 
 
