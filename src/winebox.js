@@ -4,24 +4,20 @@ import './style/main.css';
 
 export function WineChart(_) {
 
-	let _countryname;
 
 	function exports(data,i){
 
 
+const root = this;
 
-		//console.log(data);
-		const root = this;
-
-
-  		const margin = {t:10,r:20,b:10,l:20};
-  		const w_svg = root.clientWidth+margin.l*2+margin.r*10;
-  		const h_svg = root.clientHeight+margin.t*8+margin.b*6;
+		const margin = {t:10,r:30,b:30,l:10};
+		const w_svg = root.clientWidth - margin.l*6 + margin.r;
+  		const h_svg = root.clientHeight - margin.t*6 + margin.b;
 		const w = w_svg-margin.l-margin.r;
-    	const h = h_svg-margin.t*2-margin.b*2;
+    	const h = h_svg-margin.t-margin.b;
 
-		const svg = d3.select(root)
-			.classed('mainbox', true)
+    	const svg = d3.select(root)
+			.classed('comparebox', true)
 			.selectAll('svg')
 			.data([1]);
 
@@ -35,27 +31,7 @@ export function WineChart(_) {
 			.select('.plot')
 			.attr('width', w)
 			.attr('height', h)
-			.attr('transform',`translate(20,6)`);
-
-////////////////////////////////////////////////////////////////////
-
-		const text = svgMain
-			.append('text')
-			.attr('x', '680px')
-			.attr('y', '400px')
-			.style('font-size', '10px')
-			.style('font-color', 'black')
-			.text('Price');
-
-		const text1 = svgMain
-			.append('text')
-			.attr('x', '30px')
-			.attr('y', '16px')
-			.style('font-size', '10px')
-			.style('font-color', 'black')
-			.text('Points');
-	
-
+			.attr('transform',`translate(30,20)`);
 
 		const scaleX = d3.scaleLog().domain([1,1500]).range([0,w]).nice();
 		const maxVolume = 100;
@@ -91,53 +67,41 @@ export function WineChart(_) {
 			.attr('class','axis axis-y');
 		axisYNode.merge(axisYNodeEnter)
 			.call(axisY);
-	
+
 ////////////////////////////////////////////////////////////////////
+
+		// const brush = d3.brushX()
+  //   		.extent([[0, 0], [w, h]])
+  //   		.on("start brush", brushed);
+
 
 		const binsUpdate = plot
 			.selectAll('.circle')
 			.data(data);
 
 
-
-		//Enter
 		const binsEnter = binsUpdate.enter()
 			.append('circle')
-			.attr('class','circle') //If you forget this, what will happen if we re-run this the activityHistogram function?
+			.attr('class','circle')
 			.attr('cx', function(d) {
 				return scaleX(d.price)})
 			.attr('cy', function(d){
-			//console.log(d.price)
 				return scaleY(d.points)})
-			.attr('r', 5)
-			.attr('fill', 'none')
+			.attr('r', 3)
+			.attr('fill', '#B22222')
+			.attr("fill-opacity", 0.2)
 			.attr('stroke', '#B22222')
-  			.attr('stroke-width', .8);
-
-		//Enter + update
-		binsEnter.merge(binsUpdate);
-		//.transition()
-		//.duration(500)
-		//.attr('r', 6)
-		//.style('fill','rgba(0,0,0,.1)');
-
-		//Exit
-		binsUpdate.exit().remove();
+			.attr('stroke-width', 1);
 
 
-//////////////////////////////////////////////////////////////////
+  		binsEnter.merge(binsUpdate);
 
-//const circleDatabyEighty = circleDatabyPoints.filter(d => d.key == 80);
 
-//////////////////////////////////////////////////////////////////
+  		binsUpdate.exit().remove();
 
 
 	}
 
-	exports.countryname = function(_){
-		_countryname = _;
-		return this;
-	}
 
 	return exports;
 

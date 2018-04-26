@@ -10,17 +10,23 @@ import StateChart from './statebox.js';
 
 //import SomeModule from './some-module';
 
-import CompareChart from './comparebox.js';
+import UsChart from './usbox.js';
+
+import OtherChart from './otherbox.js';
 
 import CountryChart from './countrybox.js';
 
 
 
 Promise.all([
-	d3.csv('../data/wine-data.csv', parse)
-	]).then(([wineData]) => {
+	d3.csv('../data/wine-data.csv', parse),
+	d3.csv('../data/wine-data-us.csv', parse),
+	d3.csv('../data/countrywithoutUS.csv', parse)
+	]).then(([wineData, usData, otherData]) => {
 
 	//console.log(wineData);
+	console.log(usData);
+	console.log(otherData);
 
 //////////////////////////////////////////////////////////////////
 
@@ -110,14 +116,22 @@ Promise.all([
 			.placename(circleDatabyPlace)
 		);
 
-	d3.select('#comparebox')
-		.datum(wineData)
-		.each(CompareChart());
+	d3.select('#usbox')
+		.datum(usData)
+		.each(UsChart());
+
+	d3.select('#otherbox')
+		.datum(otherData)
+		.each(OtherChart());
 
 
 	d3.select('#countrybox')
 		.datum(wineData)
 		.each(CountryChart());
+
+	d3.select('#winebox')
+		.datum(wineData)
+		.each(WineChart());
 
 //////////////////////////////////////////////////////////////////
 	
