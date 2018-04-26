@@ -69,6 +69,11 @@ function CompareChart(_) {
 
 ////////////////////////////////////////////////////////////////////
 
+		// const brush = d3.brushX()
+  //   		.extent([[0, 0], [w, h]])
+  //   		.on("start brush", brushed);
+
+
 		const binsUpdate = plot
 			.selectAll('.circle')
 			.data(data);
@@ -81,8 +86,11 @@ function CompareChart(_) {
 				return scaleX(d.price)})
 			.attr('cy', function(d){
 				return scaleY(d.points)})
-			.attr('r', 1)
-			.attr('fill', '#B22222');
+			.attr('r', 3)
+			.attr('fill', '#B22222')
+			.attr("fill-opacity", 0.2)
+			.attr('stroke', '#B22222')
+			.attr('stroke-width', 1);
 
 
   		binsEnter.merge(binsUpdate);
