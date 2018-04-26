@@ -31,10 +31,13 @@ export function CountryChart(_) {
 			.select('.plot')
 			.attr('width', w)
 			.attr('height', h)
-			.attr('transform',`translate(30,20)`);
+			.attr('transform',`translate(32,20)`);
 
-		const scaleX = d3.scaleBand().domain(data.map(function(d){
-			return d.country})).range([0,w]);
+		const scaleX = d3.scaleBand()
+							.domain(data.map(function(d){return d.country}))
+							.range([0,w])
+							.padding(1);
+
 		const scaleY = d3.scaleLinear().domain([0,2013]).range([h,0]);
 
 ////////////////////////////////////////////////////////////////////

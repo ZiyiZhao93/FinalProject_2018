@@ -80,7 +80,6 @@ function CompareChart(_) {
 			.attr('cx', function(d) {
 				return scaleX(d.price)})
 			.attr('cy', function(d){
-			//console.log(d.price)
 				return scaleY(d.points)})
 			.attr('r', 1)
 			.attr('fill', '#B22222');
